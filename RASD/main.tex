@@ -64,7 +64,7 @@
     {\large Professor\par
         Matteo \textsc{Rossi}}
     \vfill
-    {\large \textbf{Version 1.0}\\ \today \par}
+    {\large \textbf{Version 1.1}\\ \today \par}
 \end{titlepage}
 
 
@@ -219,6 +219,7 @@ Moreover, every user has the possibility to visualize the profile of a student a
 \subsection{Revision history}
 \begin{itemize}
     \item \textbf{Version 1.0}: First release
+    \item \textbf{Version 1.1}: Alloy revision
 \end{itemize}
 
 \subsection{Reference Documents}
@@ -1118,11 +1119,13 @@ The system is engineered to support smooth portability in case of changes to the
 
     sig TournamentRegistration{
         tournament: one Tournament,
+        student: one Student,
         date: one DateTime
     }
 
     sig BattleRegistration{
         battle: one Battle,
+	   team: one Team,
         date: one DateTime
     }
    
@@ -1137,17 +1140,17 @@ The system is engineered to support smooth portability in case of changes to the
     sig Team{
         name: one String,
         members: some Student,
+        battle: one Battle,
         repository: one String,
-        lastSub: one LastSubmission
-    }
-
-    sig LastSubmission{
-        name: one String,
-        code: one File,
-        date: one DateTime
+        lastSubmissionDate: one DateTime,
+        code: one File
     }
 
     sig File {}
+
+
+
+
     
     sig Tournament{
         creator: one Educator,
@@ -1166,12 +1169,12 @@ The system is engineered to support smooth portability in case of changes to the
     sig Badge{
         name: one String,
         rules: some Rule,
-	tournament: one Tournament
+        tournament: one Tournament
     }
     
     sig Rule{
         variables: some Int,
-	badge: one Badge
+        badge: one Badge
     }
 
     sig Battle{
@@ -1182,7 +1185,7 @@ The system is engineered to support smooth portability in case of changes to the
         subDeadline: one DateTime,
         enrolledTeams: set Team,
         creator: one Educator,
-	tournament: one Tournament
+        tournament: one Tournament
     }{
         //The minimum number for the team members must be smaller or equal than the maximum number
         minNumber <= maxNumber
@@ -1194,13 +1197,17 @@ The system is engineered to support smooth portability in case of changes to the
         no disj t1, t2 : enrolledTeams |  t1.name =  t2.name
     }
 
+
+
+
+
     //FACTS
 
     // Each user has a unique username
     fact{
         all u1, u2: User | u1 != u2 implies u1.username != u2.username
     }
-
+    
     // Each user has a unique email address
     fact{
         all u1, u2: User | u1 != u2 implies u1.email != u2.email
@@ -1225,6 +1232,16 @@ The system is engineered to support smooth portability in case of changes to the
     fact{
         no disj t1, t2 : Team | t1.repository = t2.repository
     }
+
+    //Each team can only participate in one battle
+    fact{
+        all t : Tournament | all tm : Team | all b : t.battles | tm in  b.enrolledTeams iff tm.battle = b
+    }
+
+    //Each team can only participate in one tournament
+    fact{
+        all t1, t2 : Tournament | all b1 : t1.battles | all b2 : t2.battles |  b1 !=b2 implies (no tm : Team | tm in b1.enrolledTeams and tm in b2.enrolledTeams)
+    }
   
     //A student cannot participate in the same team more than once
     fact{
@@ -1248,17 +1265,17 @@ The system is engineered to support smooth portability in case of changes to the
     
     //Every battle in a tournament has a reference to that tournament
     fact{
-	all t : Tournament | all b : Battle | b.tournament = t iff b in t.battles
+        all t : Tournament | all b : Battle | b.tournament = t iff b in t.battles
     }
 
     //Every badge in a tournament has a reference to that tournament
     fact{
-	all t : Tournament | all b : Badge | b.tournament = t iff b in t.badges
+        all t : Tournament | all b : Badge | b.tournament = t iff b in t.badges
     }
 
     //Every rule can only be associated with one badge
     fact{
-	all r : Rule | all b : Badge | r.badge = b iff r in b.rules
+        all r : Rule | all b : Badge | r.badge = b iff r in b.rules
     }
 
     //Each student can participate to a battle with a single team
@@ -1266,16 +1283,21 @@ The system is engineered to support smooth portability in case of changes to the
         all s : Student, b : Battle | no disj t1, t2 : b.enrolledTeams | s in t1.members and s in t2.members
     }
 
-    //Every team's last submission must be before the submission deadline
-    fact {
-        all b : Battle, t : Team | t.lastSub.date.day < b.subDeadline.day
-    }
-
     //Each tournament has a unique title
     fact{
         no disj t1, t2 : Tournament | t1.title = t2.title
     }
+ 
+    //Every tournament registration belongs to one and only one student
+    fact{
+        all t1, t2 : TournamentRegistration | t1.student = t2.student implies t1.tournament.name != t2.tournament.name
+    }
     
+   //Every battle registration belongs to one and only one team
+   fact{
+        all b1, b2 : BattleRegistration | b1.team = b2.team implies b1.battle.name != b2.battle.name 
+    }
+
     //Each battle in a tournament has a unique name
     fact{
         all t : Tournament | no disj b1, b2 : t.battles | b1.name = b2.name
@@ -1286,16 +1308,20 @@ The system is engineered to support smooth portability in case of changes to the
         all t : Tournament | no disj b1, b2 : t.badges | b1.name = b2.name
     }
 
-
-pred show{
-	#Student > 1
-	#Tournament > 1
-	#Battle>1
-	#Educator>1
-	#Badge > 1
-	#Team > 1
-}
-run show for 10 but exactly 10 String
+    //Every team's last submission must be before the submission deadline
+    fact{
+        all b : Battle, t : Team | t.lastSubmissionDate.day < b.subDeadline.day
+    }
+   
+    pred show{
+        #Student > 1
+        #Tournament > 1
+        #Battle > 1
+        #Educator > 1
+        #Badge > 1
+        #Team > 1
+    }
+    run show for 10 but exactly 10 String
 \end{lstlisting}
 
 \clearpage
