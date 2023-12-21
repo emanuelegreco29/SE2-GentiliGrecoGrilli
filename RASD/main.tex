@@ -59,12 +59,12 @@
     {\huge\bfseries RASD\@: Requirement Analysis
         and Specification Document \par}
     \vspace{2cm}
-    {\Large {Filippo Gentili\quad Emanuele Greco\quad Marco Grilli}\par}
+    {\Large {Filippo Gentili\quad Emanuele Greco\quad Marco Giulio Grilli}\par}
     \vfill
     {\large Professor\par
         Matteo \textsc{Rossi}}
     \vfill
-    {\large \textbf{Version 1.1}\\ \today \par}
+    {\large \textbf{Version 1.2}\\ \today \par}
 \end{titlepage}
 
 
@@ -89,20 +89,20 @@ Educators will be allowed to create code battles belonging to a specific tournam
     \item Setting minimum and maximum number of students per team
     \item Setting a registration deadline
     \item Setting a final submission deadline
-    \item Set additional configurations for scoring
+    \item Setting additional configurations for scoring
 \end{itemize}
 
-When the submission deadline expires there is a consolidation stage in which, if manual evaluation is required, the educators can go through the sources produced by each team to assign the final score by using the CKB platform. Once all the battles are completed, an educator can close the tournament, letting the platform notify the students involved in that tournament.
+When the submission deadline expires there is a consolidation stage in which, if manual evaluation is required, the educators can go through the sources produced by each team to assign the final score by using the CKB platform. Once all the battles are completed, an educator can close the tournament, letting the platform update the students' scores.
 Educators can also define badges, which are rewards that represent the achievements of individual students. Each badge has a title (e.g., “Top Committer”) and one or more rules that are defined by the educator who is creating the badge, as well as new variables associated with the rules. Rules must be fulfilled in order to achieve the badge, while variables can represent any piece of information relevant for scoring. In this way, each badge can be assigned to one or more students, depending on the rules checked at the end of the tournament. Lastly, badges can be visualized by both students and educators, who can see collected badges when they visualize the profile of a specific student.
 Students participate in teams, formed on the platform, to a battle; in particular, students can join a battle on their own or by being invited by others, while always respecting the minimum and maximum number of students per team set for that specific battle. Once the registration deadline expires, the platform creates a GitHub repository with all the material needed and sends the link to the subscribed students, who then have to fork it and set up an automated workflow through GitHub Actions, which then informs the CKB platform whenever a student pushes a new commit into the main branch of the repository. In this way, after each push, executed before the final submission deadline, the CKB platform pulls the latest sources, analyzes them and runs the tests on the executables to calculate and, optionally, update the battle score of the team.
-At the end of the battle, the platform assigns scores to groups to create a competition rank. The score is a natural number between 0 and 100 determined by considering some mandatory factors evaluated in a fully automated way and the optional factors evaluated manually by educators. The mandatory automated evaluation criteria include:
+At the end of the battle, the platform assigns scores to students to create a competition rank. The score is a natural number between 0 and 100 determined by considering some mandatory factors evaluated in a fully automated way and the optional factors evaluated manually by educators. The mandatory automated evaluation criteria include:
 \begin{itemize}
-    \item functional aspects, measured in terms of number of test cases that pass out of all test cases (the higher the better);
+    \item functional aspects, measured in terms of number of test cases passed, out of all test cases (the higher the better);
     \item timeliness, measured in terms of time passed between the registration deadline and the last commit (the lower the better); 
     \item quality level of the sources, extracted through static analysis tools that consider multiple aspects such as security, reliability, and maintainability (the higher the better). Aspects are selected by the educator at battle creation time.
 \end{itemize}
 
-The CKB platform automatically updates the battle score of a team as soon as a new push on GitHub is performed; additionally, at the end of each battle the platform updates the personal tournament score of each student so that, for each tournament, there is a rank that measures how a student’s performance compares to other students. This information can be seen by all users in a form of a list of ongoing tournaments with their corresponding tournament rank. 
+The CKB platform automatically updates the battle score of a team as soon as a new push on GitHub is performed; additionally, at the end of each battle, the platform updates the personal tournament score of each student so that, for each tournament, there is a rank that measures how a student’s performance compares to other students. This information can be seen by all users in a form of a list of ongoing tournaments with their corresponding tournament rank. 
 $\\$
 
 \noindent To sum it up, we can highlight the following project goals:
@@ -119,18 +119,19 @@ $\\$
 \end{adjustwidth}
 
 \subsection{Scope}
-The platform is called CodeKataBattle and will help students to improve their software development skills by participating in battles. $\\$
+The platform is called CodeKataBattle and will help students to improve their software development skills by participating in coding battles. $\\$
 Students can:
 \begin{itemize}
     \item Subscribe to a tournament.
-    \item Join a battle, on his/her own or by being invited by other students.
+    \item Join a battle, on their own or by being invited by other students.
+    \item Add friends.
 \end{itemize}
 
 \noindent Educators can:
 \begin{itemize}
     \item Create a new tournament
     \item Create a badge
-    \item Create a new battle, which belong to a specific tournament.
+    \item Create a new battle, which belongs to a specific tournament.
     \item Grant to other colleagues the permission to create battles within the context of a specific tournament.
     \item Close a tournament.
     \item Evaluate the work of a student by assigning a personal score.
@@ -194,8 +195,8 @@ Moreover, every user has the possibility to visualize the profile of a student a
 \subsection{Definitions, Acronyms, Abbreviations}
 \subsubsection{Definitions}
 \begin{itemize}
-    \item \textbf{Educator:} The user that can create the tournament, battles and badges to improve his/her students' coding abilities.
-    \item \textbf{Student:} The use that participates in tournaments and battles, either alone or with other students, to improve his/her coding abilities.
+    \item \textbf{Educator:} The User that can create the tournament, battles and badges to improve his/her students' coding abilities.
+    \item \textbf{Student:} The User that participates in tournaments and battles, either alone or with other students, to improve his/her coding abilities.
     \item \textbf{User:} An user can be either an Educator or a Student
     \item \textbf{Notification:} It is an alert indicating the occurrence of a specific event. It can come in a form of Push Notification inside the platform or as an email.
     \item \textbf{Tournament:} It is a set of battles created by the educator.
@@ -220,6 +221,7 @@ Moreover, every user has the possibility to visualize the profile of a student a
 \begin{itemize}
     \item \textbf{Version 1.0}: First release
     \item \textbf{Version 1.1}: Alloy revision
+    \item \textbf{Version 1.2}: Fixed some typos and minor touch ups
 \end{itemize}
 
 \subsection{Reference Documents}
@@ -251,8 +253,9 @@ In this section, we include various scenarios and delve deeper into the intricac
     \item \textbf{Laura evaluates the teams’ projects} $\\$Laura, a senior teacher well known for her knowledge in Java language, has been given by Giuseppe the access to the tournament and the role to evaluate teams’ projects after the final deadline is reached, for every battle she created in the tournament. During the battle’s progression, she regularly checks the score of all the teams enrolled, which are updated automatically by the CKB platform as soon as new push actions are performed on GitHub. Reached the final submission deadline, the consolidation stage begins and Laura, following the rules imposed by Simone in the battle creation, finds that some groups that did not have the maximum number of students still managed to perform well, having the last commit within a good range and with a reliable software project. So, after checking all the sources and the material produced by those teams, she decides to reward them by assigning some additional points, thus improving their final score. After she’s done, she closes the consolidation stage and the CKB platform publishes the final battle rank and notifies all the enrolled students.
     \item \textbf{Andrea joins tournament}$\\$Andrea is a student who likes to work with other people, likes competitions but does not have a good knowledge of programming languages. His teacher, although, has created a Java tournament and he decides to participate to have some fun and to learn something new with his friends. He receives the tournament enrollment email and subscribes to the CKB platform; later on, he decides to join the first battle and invites some of his friends, who know Java programming better than him, to create a team. As soon as his friends receive the invitation link, sent by Andrea, they all join the team, which is now at its maximum capacity, and wait for the battle to start.
     \item \textbf{Davide forks GitHub}$\\$Davide, Andrea's friend who has previously worked with the GitHub platform, is asked by his teammates to set up and manage the interaction between the IDE chosen by the team and GitHub. Following the instructions given by the educators and the link received by email, he forks the GitHub repository, which contains the code kata designed for that specific battle, and, by using GitHub actions, he sets up the automated workflow between the CKB platform and the IDE so that, using some API calls defined in CKB, it triggers the CKB platform every time a student pushes new commits into the main branch of the repository.
-    \item \textbf{Michele adds a friend}$\\$Michele wants to create a team with his mates to compete on a big tournament on CKB. In order to do so, he logs in to the platform and, by navigating to the "Friends" tab on the left of the UI, he searches, one by one, all his friend's usernames. Then he clicks on the button on the side to add them, so that he can access their profiles quickly and add them to the team during the battle creation.
-    \item \textbf{Franco checks a friends profile}$\\$Franco, a CKB subscriber and student, wants to view the profile of one of his friends. He accesses the friends section by using the left sidebar. Within this section, he has the option to either select a profile from his friends list or search for a friend who is not currently in his list.
+    \item \textbf{Michele adds a friend}$\\$Michele wants to create a team with his mates to compete on a big tournament on CKB. In order to do so, he logs in to the platform and, by navigating to the "Friends" tab on the left of the UI, he searches, one by one, all his friends' usernames. Then he clicks on the button on the side to add them, so that he can access their profiles quickly and add them to the team during the battle creation.
+    \item \textbf{Franco checks a friends profile}$\\$Franco, a CKB subscriber and student, wants to view a friend's profile. He accesses the friends section by using the left sidebar. Within this section, he has the option to either select a profile from his friends list or search for a friend who is not currently in his list.
+    \item \textbf{Elisa gets a badge awarded}$\\$Elisa, a dedicated member of a coding tournament team, diligently worked towards her goals throughout the competition. Following the tournament's conclusion, her hard work paid off as she was awarded the "Best Committer" badge, recognizing her achievement of having the highest number of lines of code committed throughout the entire event. Elisa can now proudly access her personal profile dashboard to witness the newly acquired badge prominently displayed.
 \end{itemize}
 
 
@@ -291,7 +294,7 @@ In [Fig.1] is represented the domain class diagram related to CodeKataBattle. It
 \begin{itemize}
     \item \textbf{Student}$\\$A student is a person who is enrolled in a school, has a device to connect to the internet and, more specifically, to the CKB platform. He/She uses the platform to join tournaments and battles, to form teams (according to the rules set by the educators) and, eventually, to see his/her score at the end of each battle. He/She also has the ability to invite his/her friends to join the same team to work together. 
     \item \textbf{Educator}$\\$ An educator is an adult who works in a school as a teacher and, thus, has some students enrolled on his courses. He/She has a device able to connect to internet and to the CKB platform so that he/she can create tournaments and/or battles, with all the required rules. He/She is also able to grant access to other educators to the tournament’s rules, so that they can help set it up and manage it. An educator can also inspect each team’s project, during the consolidation stage, to evaluate the project thoroughly in all its aspects. Moreover, an educator can create custom badges to assign to certain students who reach set achievements. 
-    \item \textbf{User}$\\$A user can be either a student or an educator. He/She is able to register and to login onto the CKB platform in order to access its functions. If he/she is a “student”, the user is notified when the tournament is created and when its score is updated; if he/she is an “educator”, the user receives the notifications whenever the consolidation stage begins and manual evaluation is needed, as well as when the deadlines are reached. 
+    \item \textbf{User}$\\$A user can be either a student or an educator. He/She is able to register and to login onto the CKB platform in order to access its functions. If he/she is a “student”, the user is notified when the tournament is created and when its score is updated; if he/she is an “educator”, the user receives the notifications whenever the consolidation stage begins and manual evaluation is needed, as well as when the deadlines are reached. A user might as well check out some students' profiles. 
 \end{itemize}
 
 \subsection{Assumptions, dependencies and constraints}
@@ -795,7 +798,7 @@ Regarding communication interfaces, the system establishes a directional connect
     \hline
     Entry condition & Student, who is already logged in, has navigated to the "Tournament dashboard" page.\\
     \hline
-    Event flow & The Student selects a battle from the battle list to see the details. He/she insert on the textbox at the bottom of the page the email address of the friend he/she wants to invite and clicks on the icon on the right. Yellow colored email addresses belong to the students who accepted the invitation and are effectively part of the team; the grey colored are the email addresses of the students who received the invitation but that didn't accepted yet.\\
+    Event flow & The Student selects a battle from the battle list to see the details. He/she insert into the textbox at the bottom of the page the email address of the friend he/she wants to invite and clicks on the icon on the right. Yellow colored email addresses belong to the students who accepted the invitation and are effectively part of the team; the grey colored are the email addresses of the students who received the invitation but that didn't accepted yet.\\
     \hline
     Exit condition & The student clicks on the icon at the right of the textbox\\
     \hline
@@ -892,10 +895,7 @@ Regarding communication interfaces, the system establishes a directional connect
     \hline
     Exit condition & User lands correctly on a student profile page.\\
     \hline
-    Output & \begin{itemize}
-        \item User can search every student
-        \item User can view the public information of a student
-    \end{itemize}\\
+    Output & User can view the public information of a student\\
     \hline
     Exception & If the username inserted by the User does not exist, or if it belongs to an Educator, the platform displays an error message and asks the User to insert a valid username.\\
     \lasthline
@@ -926,10 +926,7 @@ Regarding communication interfaces, the system establishes a directional connect
     \hline
     Exit condition & One or multiple friend requests have been sent successfully.\\
     \hline
-    Output & \begin{itemize}
-        \item Students can search every student
-        \item One or more friend requests are send to to the students
-    \end{itemize}\\
+    Output & One or more friend requests are send to to the students\\
     \hline
     Exception & If the username input by the student doesn't exists, the platform prompts an error to the student and asks him/her to insert a valid username.\\
     \lasthline
@@ -954,7 +951,7 @@ Regarding communication interfaces, the system establishes a directional connect
     \hline
     Actors & Educator\\
     \hline
-    Entry condition & Student, who is already logged in, has navigated to the "Educator dashboard" page.\\
+    Entry condition & Educator, who is already logged in, has navigated to the "Educator dashboard" page.\\
     \hline
     Event flow & The educator clicks on the "Close" button, placed in the "Tournament List".\\
     \hline
@@ -1032,7 +1029,7 @@ $\\$
     \item \textbf{[G2]: Allow students to join a battle}
     \begin{itemize}
         \item \textbf{R2:} The system allows a registered student to select a battle to join.
-        \item \textbf{R3:} The system allows a registered student retrieve a battles' list for each tournament.
+        \item \textbf{R3:} The system allows a registered student to retrieve a list of battles for each tournament.
         \item \textbf{D1:} Users must have a device able to connect to the internet.
         \item \textbf{D2:} Users give consent to the platform to receive notifications. 
         \item \textbf{D3:} Students must have GitHub accounts.
@@ -1050,7 +1047,7 @@ $\\$
         \item \textbf{R7:} The system generates a tournament invitation link for all students. 
         \item \textbf{R8:} The system allows a registered educator to set up the tournament parameters.
         \item \textbf{R9:} The system allows a registered educator to grant access to other educators.
-        \item \textbf{R10:} The system allows a registered educator to create badges
+        \item \textbf{R10:} The system allows a registered educator to create badges.
         \item \textbf{D1:} Users must have a device able to connect to the internet.
     \end{itemize}
     \item \textbf{[G5]: Allow an educator to create a battle}
@@ -1148,10 +1145,9 @@ The system is engineered to support smooth portability in case of changes to the
 
     sig File {}
 
-
-
-
-    
+\end{lstlisting}
+\clearpage
+\begin{lstlisting}
     sig Tournament{
         creator: one Educator,
         collaborators: set Educator,
@@ -1196,11 +1192,9 @@ The system is engineered to support smooth portability in case of changes to the
         //The same team cannot participate at the same battle more than once
         no disj t1, t2 : enrolledTeams |  t1.name =  t2.name
     }
-
-
-
-
-
+\end{lstlisting}
+\clearpage
+\begin{lstlisting}
     //FACTS
 
     // Each user has a unique username
