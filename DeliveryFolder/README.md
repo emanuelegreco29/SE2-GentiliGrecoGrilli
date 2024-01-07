@@ -9,3 +9,4 @@
 ### DD Document Version:
 
 - **DDv1.0**: First release of the document, published on Jan 5 2024.
+- **DDv1.1**: **Final Release**, published on Jan 7 2024.
