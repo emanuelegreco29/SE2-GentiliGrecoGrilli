@@ -1,4 +1,4 @@
-# Folder assigned to the Design Document
+# Design Document
 
 ### Folder organization and files:
 - **main.tex**: LaTeX document, main source of the final document. Compiled with Overleaf.
