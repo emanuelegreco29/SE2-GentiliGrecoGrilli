@@ -8,7 +8,7 @@ CodeKataBattle is the final project of the "**Software Engineering 2**" course, 
 ## Project Specifications
 CodeKataBattle (CKB) is a platform that helps students improve their software development skills by training with peers on code kata, akin to "kata" from Karate. Educators use the platform to challenge students by creating kata battles in which teams of students can compete against each other, thus proving (and improving) their skills.
 
-Full specification can be found [here]().
+Full specification can be found [here](https://github.com/emanuelegreco29/SE2-GentiliGrecoGrilli/blob/main/Assignment/Assignment%20RDD%20AY%202023-2024.pdf).
 
 Our version of the project just includes the Requirement Analysis and Specification Document (RASD), paired with the Design Document (DD). It **DOES NOT** include the Implementation Document (ID) nor the Acceptance Testing Document (ATD), as well as any real implementation of the platform designed.
 
