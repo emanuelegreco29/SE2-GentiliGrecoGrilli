@@ -1,4 +1,4 @@
-# This folder will contain the final releases of both the RASD and the DD.
+# Releases Breakdown
 
 ### RASD Document Versions:
 
