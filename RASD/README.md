@@ -1,4 +1,4 @@
-# Folder assigned to the Requirement Analysis and Specification Document
+# Requirement Analysis and Specification Document
 
 ### Folder organization and files:
 - **alloy.sty**: This file has been created and used to enhance the view of Alloy code inside the LaTeX document, giving it more color and, thus, increasing readability.
